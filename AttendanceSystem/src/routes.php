@@ -19,7 +19,7 @@ function dbConn()
 
 $app->get('/', function ($request, $response, $args) {
    	// Render index view
-    return $this->renderer->render($response, 'index.php', $args);
+	return $this->renderer->render($response, 'index.php', $args);
 });
 $app->post('/login', function ($request, $response, $args) {
    	// Render index view
@@ -48,5 +48,5 @@ $app->post('/login', function ($request, $response, $args) {
 
 $app->get('/dashboard', function ($request, $response, $args) {
    	// Render index view
-    return $this->renderer->render($response, 'dashboard.php', $args);
+	return $this->renderer->render($response, 'dashboard.php', $args);
 });
