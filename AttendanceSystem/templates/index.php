@@ -25,7 +25,12 @@
 			<label for="password">Password</label>
 			<input type="password" id="password" name="password" class="form-control">
 		</div>
-		<input type="submit" class="btn btn-primary btn-lg" value="Login">
+		<div class="col-sm-10-">
+			<input type="submit" class="btn btn-primary btn-lg" value="Login">
+		</div>
+		<div class="col-sm-2">
+			<a href="/registration">Register Here!</a>
+		</div>
 	</form>
 	</div>
 </body>
