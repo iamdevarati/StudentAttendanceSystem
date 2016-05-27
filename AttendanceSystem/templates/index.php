@@ -43,6 +43,27 @@
 			</form>
 
 		</div>
+<<<<<<< HEAD
+=======
+	<?php } ?>
+		
+	<form action="/login" method="post">
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" id="username" name="username" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" id="password" name="password" class="form-control">
+		</div>
+		<div class="col-sm-10-">
+			<input type="submit" class="btn btn-primary btn-lg" value="Login">
+		</div>
+		<div class="col-sm-2">
+			<a href="/registration">Register Here!</a>
+		</div>
+	</form>
+>>>>>>> e3c145a2ca277705d130f49c29764c60b4bf4d63
 	</div>
 </body>
 <script type="text/javascript">
