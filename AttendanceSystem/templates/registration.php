@@ -6,7 +6,21 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <link href='https://fonts.googleapis.com/css?family=Allura' rel='stylesheet' type='text/css'>
 </head>
+<style>
+  body{ 
+    background: url(background.jpg) no-repeat;
+    background-size : cover;
+    font-family: 'Allura', cursive;
+  }
+  label,a,input {
+    font-size: 150%;
+  }
+  h1{
+    font-size: 400%;
+  }
+</style>
 <body>
 	<div class="container">
 	<h1>Registration</h1>
@@ -81,9 +95,14 @@
 
   <div class="form-group"> 
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-primary btn-lg">Submit</button>
     </div>
   </div>
 </form>
 </body>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('body').addClass('text-primary');
+  });
+</script>
 </html>

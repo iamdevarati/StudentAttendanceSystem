@@ -48,11 +48,7 @@ $app->post('/login', function ($request, $response, $args) {
 });
 //dashboard
 $app->get('/dashboard', function ($request, $response, $args) {
-   	// Render index view
-<<<<<<< HEAD
-	return $this->renderer->render($response, 'dashboard.php', $args);
-=======
-    return $this->renderer->render($response, 'dashboard.php', $args);
+  	return $this->renderer->render($response, 'dashboard.php', $args);
 });
 //registration
 $app->get('/registration', function ($request, $response, $args) {
@@ -98,5 +94,4 @@ $app->post('/register', function ($request, $response, $args) {
 		$args['error']= "User already exists";
 		return $response->withRedirect('/registration?'.http_build_query($args));
 	}
->>>>>>> e3c145a2ca277705d130f49c29764c60b4bf4d63
 });

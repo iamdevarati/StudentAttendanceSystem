@@ -14,7 +14,7 @@
 		background-size : cover;
 		font-family: 'Allura', cursive;
 	}
-	label {
+	label,a {
 		font-size: 200%;
 	}
 	h1{
@@ -29,41 +29,25 @@
 				<h3><?= $_GET['error']?></h3> 
 			</div>
 		<?php } ?>
-		<div class="container ">	
-			<form action="/login" method="post">
-				<div class="form-group">
-					<label for="username">Username  </label>
-					<input type="text" id="username" name="username" >
-				</div>
-				<div class="form-group">
-					<label for="password">Password  </label>
-					<input type="password" id="password" name="password">
-				</div>
-				<input type="submit" class="btn btn-primary btn-lg" value="Login">
-			</form>
-
-		</div>
-<<<<<<< HEAD
-=======
-	<?php } ?>
 		
-	<form action="/login" method="post">
-		<div class="form-group">
-			<label for="username">Username</label>
-			<input type="text" id="username" name="username" class="form-control">
-		</div>
-		<div class="form-group">
-			<label for="password">Password</label>
-			<input type="password" id="password" name="password" class="form-control">
-		</div>
-		<div class="col-sm-10-">
-			<input type="submit" class="btn btn-primary btn-lg" value="Login">
-		</div>
-		<div class="col-sm-2">
-			<a href="/registration">Register Here!</a>
-		</div>
-	</form>
->>>>>>> e3c145a2ca277705d130f49c29764c60b4bf4d63
+		<form action="/login" method="post">
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username" >
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" >
+			</div>
+			<div class="row">
+				<div class="col-sm-2">
+					<input type="submit" class="btn btn-primary btn-lg" value="Login" >
+				</div>
+				<div class="col-sm-2">
+					<a href="/registration">Register Here!</a>
+				</div>
+			</div>
+		</form>
 	</div>
 </body>
 <script type="text/javascript">
