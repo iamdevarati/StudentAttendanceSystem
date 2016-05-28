@@ -17,6 +17,11 @@
 	label ,a{
 		font-size: 200%;
 	}
+	table{
+		color:white;
+		font-weight: bold;
+		font-size: 22px;
+	}
 	h1,h3{
 		font-size: 400%;
 	}
@@ -32,7 +37,7 @@
 	<div class="tab-content">
 		<div id="routine" class="tab-pane fade in active">
 			<h3>Routine</h3>
-			<table class="table table-striped">
+			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th>Day</th>
@@ -51,13 +56,13 @@
 							foreach($rows as $row) { ?>
 						<tr>
 							<td><strong><?= $row['day'] ?><strong></td>
-							<td><?= $row['period1'] ?></td>
-							<td><?= $row['period2'] ?></td>
-							<td><?= $row['period3'] ?></td>
+							<td><?= $row['p1'] ?></td>
+							<td><?= $row['p2'] ?></td>
+							<td><?= $row['p3'] ?></td>
 							<td>-----</td>
-							<td><?= $row['period4'] ?></td>
-							<td><?= $row['period5'] ?></td>
-							<td><?= $row['period6'] ?></td>
+							<td><?= $row['p4'] ?></td>
+							<td><?= $row['p5'] ?></td>
+							<td><?= $row['p6'] ?></td>
 						</tr>
 						<?php }
 					} ?>

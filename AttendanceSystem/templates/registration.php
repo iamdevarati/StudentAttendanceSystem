@@ -14,8 +14,8 @@
     background-size : cover;
     font-family: 'Allura', cursive;
   }
-  label,a,input {
-    font-size: 150%;
+  label,a {
+    font-size: 200%;
   }
   h1{
     font-size: 400%;
@@ -35,14 +35,14 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="name">Name:</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+      <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" style="font-size:23px">
     </div>
   </div>
 
   <div class="form-group">
     <label class="control-label col-sm-2" for="dept">Department:</label>
     <div class="col-sm-7 list-group" style="padding-left: 15px"> 
-    	<select id="dept" name="dept" class="form-control">
+    	<select id="dept" name="dept" class="form-control" style="font-size:23px">
 	    	<option value="Defence" class="list-group-item active">Defence</option>
 	    	<option value="Transfiguration" class="list-group-item">Transfiguration</option>
 	    	<option value="Potions" class="list-group-item">Potions</option>
@@ -53,7 +53,7 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="section">Section:</label>
       <div class="col-sm-7 list-group" style="padding-left: 15px"> 
-    	<select id="section" name="section" class="form-control">
+    	<select id="section" name="section" class="form-control" style="font-size:23px">
 	    	<option value="A" class="list-group-item active">A</option>
 	    	<option value="B" class="list-group-item">B</option>
 	  	</select>
@@ -63,7 +63,7 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="semester">Semester:</label>
     <div class="col-sm-7 list-group" style="padding-left: 15px"> 
-    	<select id="semester" name="semester" class="form-control">
+    	<select id="semester" name="semester" class="form-control" style="font-size:23px">
 	    	<option value="one" class="list-group-item active">First</option>
 	    	<option value="two" class="list-group-item">Second</option>
 	    	<option value="three" class="list-group-item">Third</option>
@@ -75,21 +75,21 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="username">Username:</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="uname" name="uname" placeholder="Choose a username">
+      <input type="text" class="form-control" id="uname" name="uname" placeholder="Choose a username" style="font-size:23px">
     </div>
   </div>
   
   <div class="form-group">
     <label class="control-label col-sm-2" for="password">Password:</label>
     <div class="col-sm-7"> 
-      <input type="password" class="form-control" id="password" name="password" placeholder="Choose a password">
+      <input type="password" class="form-control" id="password" name="password" placeholder="Choose a password" style="font-size:23px">
     </div>
   </div>
 
   <div class="form-group">
     <label class="control-label col-sm-2" for="rtyPassword">Retype Password:</label>
     <div class="col-sm-7"> 
-      <input type="password" class="form-control" id="rtyPassword" name="rtyPassword" placeholder="Re-enter the password">
+      <input type="password" class="form-control" id="rtyPassword" name="rtyPassword" placeholder="Re-enter the password" style="font-size:23px">
     </div>
   </div>
 
