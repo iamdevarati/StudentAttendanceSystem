@@ -1,47 +1,5 @@
 <?php
 // Routes
-function dbConn()
-{
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "dbproject";
-
-	try {
-	    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-	    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	    return $conn;
-	}
-	catch(PDOException $e) {
-	    echo "Error: " . $e->getMessage();
-	}
-}
-//obtaining routine
-function extrctRoutine($dept,$sem,$sec,$conn)
-{
-	$sql="SELECT * FROM studroutine WHERE (dept='$dept' and semester='$sem' and section='$sec')";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute();
-	// set the resulting array to associative
-	$result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-	$result  = $stmt->fetchAll();
-	return $result;
-}
-//
-function sortweekday($result)
-{
-	$days=['Monday','Tuesday','Wednesday','Thursday','Friday'];
-	$num=0;
-	$res=[];
-		foreach ($days as $d) {
-			foreach ($result as $r) {
-				if($r['day']==$d){
-					$res[]=$r;
-				}
-			}
-		}
-	return $res;
-}
 //home
 $app->get('/', function ($request, $response, $args) {
    	// Render index view
@@ -88,8 +46,7 @@ $app->get('/dashboard', function ($request, $response, $args) {
 
 	$result=extrctRoutine($dept,$sem,$sec,$conn);
 	if($result!=null){
-		$args['rows'] = sortweekday($result);
-		//echo json_encode($args);
+		$args['rows'] = sortWeekday($result);
   		return $this->renderer->render($response, 'dashboard.php', $args);
 	}
 	else{
