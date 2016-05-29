@@ -31,7 +31,7 @@
 		</div>
 	<?php } ?>
 
-<form action="/register" method="post" class="form-horizontal" role="form">
+<form action="/AttendanceSystem/public/register" method="post" class="form-horizontal" role="form">
   <div class="form-group">
     <label class="control-label col-sm-2" for="name">Name:</label>
     <div class="col-sm-7">

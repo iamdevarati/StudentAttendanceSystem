@@ -44,9 +44,9 @@ function sortWeekday($routine)
 	return $sortedRoutine;
 }
 //obtaining the attendance
-function obtainAtt($id,$subCode,$conn)
+function obtainAtt($id,$conn)
 {
-	$sql="SELECT * FROM attendance WHERE studID='$id' and subjectCode='subCode'";
+	$sql="SELECT * FROM attendance WHERE studID='$id'";
 	$stmt=$conn->prepare($sql);
 	$stmt->execute();
 	$result=$stmt->setFetchMode(PDO::FETCH_ASSOC);

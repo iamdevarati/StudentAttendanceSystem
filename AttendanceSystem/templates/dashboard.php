@@ -10,11 +10,11 @@
 </head>
 <style>
 	body{ 
-		background: url(background.jpg) no-repeat;
+		background: url(dashboard.jpg) no-repeat;
 		background-size : cover;
 		font-family: 'Allura', cursive;
 	}
-	label ,a{
+	label ,li, button, p{
 		font-size: 200%;
 	}
 	table{
@@ -24,6 +24,12 @@
 	}
 	h1,h3{
 		font-size: 400%;
+	}
+	.attendance{
+		display: none;
+	}
+	.container {
+		padding:  20px 40px;
 	}
 </style>
 <body>
@@ -70,16 +76,32 @@
 			</table>
 		</div>
 		<div id="attendance" class="tab-pane fade">
-			<h3>Check Attendance</h3>
-			<div class="container text-center">
-				<form action="/dashboard?id=<?php echo $_GET('id') ?>" method="get">
-					<form-group>
-						<label for="subject">Enter Subject Code : </label>
-						<input type="text" name="subject" id="subject"> 
-					</form-group>
-					<input type="submit" value="Check" class="btn btn-primary btn-lg" onclick="dispAtt(<?=json_encode($att)?>)">
-				</form>
+			<div class="col-sm-4">
+				<h3>Check Attendance</h3>	
 			</div>
+			<div class="col-sm-4">
+				<div class="container ">
+					<div class="dropdown">
+					<button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">Select Subject
+					<span class="caret"></span></button>
+						<ul class="dropdown-menu" id="subjects">
+							<?php foreach($att as $a)  {?>
+								<li><a href="#"><?= $a['subjectCode'] ?></a></li>
+							<?php } ?>
+						</ul>
+					</div>
+				</div>	
+			</div>
+			<div class="col-sm-4">
+				<?php foreach($att as $a)  {?>
+					<div class="attendance" id="<?= $a['subjectCode'] ?>">
+						<h3><?= $a['subjectCode'] ?></h3>
+						<p> Classes attended : <?= $a['att'] ?></p>
+					</div>
+				<?php } ?>
+			</div>
+			
+			
 		</div>
 		<div id="personal" class="tab-pane fade">
 			<h3>Personal Info</h3>
@@ -87,9 +109,14 @@
 	</div>
 </body>
 <script>
-	function dispAtt(var a) {
-		console.log(a);
-	}
+	$(document).ready(function(){
+		$('body').addClass('text-primary');
+	});
+	$("#subjects li a").click(function(){
+		var subject = $(this).text();
+		$(".attendance").css("display","none");
+		$("#"+subject).css("display","block");
+	});
 	
 </script>
 </html>
