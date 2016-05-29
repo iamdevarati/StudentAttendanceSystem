@@ -30,7 +30,7 @@
 			</div>
 		<?php } ?>
 		
-		<form action="/AttendanceSystem/public/login" method="post">
+		<form action="/login" method="post">
 			<div class="form-group">
 				<label for="username">Username</label>
 				<input type="text" id="username" name="username" >

@@ -23,11 +23,11 @@ $app->post('/login', function ($request, $response, $args) {
 	if($result!=null){
 		$args['id'] = $result[0]['id'];
 		$args['role'] = $result[0]['role'];
-		return $response->withRedirect('/AttendanceSystem/public/dashboard?'. http_build_query($args));
+		return $response->withRedirect('/dashboard?'. http_build_query($args));
 	}
 	else{
 		$args['error']="Invalid username or password";
-		return $response->withRedirect('/AttendanceSystem/public/?'.http_build_query($args));
+		return $response->withRedirect('/?'.http_build_query($args));
 	}
 });
 //dashboard
@@ -50,7 +50,7 @@ $app->get('/dashboard', function ($request, $response, $args) {
 	}
 	else{
 		$args['error']="Routine is not available";
-		return $response->withRedirect('/AttendanceSystem/public/?'.http_build_query($args));
+		return $response->withRedirect('/?'.http_build_query($args));
 	}
 	//for attendance
 	$result=obtainAtt($id,$conn);
@@ -62,7 +62,7 @@ $app->get('/dashboard', function ($request, $response, $args) {
 	else
 	{
 		$args['error']="No attendance available";
-		return $response->withRedirect('/AttendanceSystem/public/?'.http_build_query($args));
+		return $response->withRedirect('/?'.http_build_query($args));
 	}
 });
 //registration
@@ -75,7 +75,7 @@ $app->post('/register', function ($request, $response, $args) {
     if($_POST['password'] != $_POST['rtyPassword'])
     {  
         $args['error'] = "Passwords do not match!";
-        return $response->withRedirect('/AttendanceSystem/public/registration?'.http_build_query($args));
+        return $response->withRedirect('/registration?'.http_build_query($args));
     }
     $name=$_POST['name'];
     $dept=$_POST['dept'];
@@ -102,11 +102,11 @@ $app->post('/register', function ($request, $response, $args) {
 		$sql_student = "INSERT INTO studentdetails(studID,name,dept,section,semester) VALUES ('$id','$name','$dept','$section','$semester')";
 		$stmt = $conn->prepare($sql_student);
 		$stmt->execute();
-		return $response->withRedirect('/AttendanceSystem/public/?'.http_build_query($args));
+		return $response->withRedirect('/?'.http_build_query($args));
 	}
 	else
 	{
 		$args['error']= "User already exists";
-		return $response->withRedirect('/AttendanceSystem/public/registration?'.http_build_query($args));
+		return $response->withRedirect('/registration?'.http_build_query($args));
 	}
 });
