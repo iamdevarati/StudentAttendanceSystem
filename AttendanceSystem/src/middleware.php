@@ -28,19 +28,28 @@ function extrctRoutine($dept,$sem,$sec,$conn)
 	$result  = $stmt->fetchAll();
 	return $result;
 }
-//
-function sortWeekday($result)
+//sort the routine according to the weekday
+function sortWeekday($routine)
 {
 	$days=['Monday','Tuesday','Wednesday','Thursday','Friday'];
 	$num=0;
-	$res=[];
+	$sortedRoutine=[];
 		foreach ($days as $d) {
-			foreach ($result as $r) {
+			foreach ($routine as $r) {
 				if($r['day']==$d){
-					$res[]=$r;
+					$sortedRoutine[]=$r;
 				}
 			}
 		}
-	return $res;
+	return $sortedRoutine;
 }
-// e.g: $app->add(new \Slim\Csrf\Guard);
+//obtaining the attendance
+function obtainAtt($id,$subCode,$conn)
+{
+	$sql="SELECT * FROM attendance WHERE studID='$id' and subjectCode='subCode'";
+	$stmt=$conn->prepare($sql);
+	$stmt->execute();
+	$result=$stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$result=$stmt->fetchAll();
+	return $result;
+}

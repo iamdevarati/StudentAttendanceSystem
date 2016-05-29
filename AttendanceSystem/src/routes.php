@@ -43,7 +43,7 @@ $app->get('/dashboard', function ($request, $response, $args) {
 	$dept=$details[0]['dept'];
 	$sem=$details[0]['semester'];
 	$sec=$details[0]['section'];
-
+	//for routine
 	$result=extrctRoutine($dept,$sem,$sec,$conn);
 	if($result!=null){
 		$args['rows'] = sortWeekday($result);
@@ -51,6 +51,20 @@ $app->get('/dashboard', function ($request, $response, $args) {
 	}
 	else{
 		$args['error']="Routine is not available";
+		return $response->withRedirect('/?'.http_build_query($args));
+	}
+	//for attendance
+	$subCode=$_GET['subject'];
+	$result=obtainAtt($id,$subCode,$conn);
+	if($result!=null)
+	{
+		$args['att']=result[0];
+		echo json_encode($result[0]);
+		//return $this->renderer->render($response, 'dashboard.php', $args);
+	}
+	else
+	{
+		$args['error']="No attendance available";
 		return $response->withRedirect('/?'.http_build_query($args));
 	}
 });

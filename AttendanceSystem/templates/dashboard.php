@@ -72,12 +72,12 @@
 		<div id="attendance" class="tab-pane fade">
 			<h3>Check Attendance</h3>
 			<div class="container text-center">
-				<form action="javascript:getAttendance()">
+				<form action="/dashboard?id=<?php echo $_GET('id') ?>" method="get">
 					<form-group>
 						<label for="subject">Enter Subject Code : </label>
 						<input type="text" name="subject" id="subject"> 
 					</form-group>
-					<input type="submit" value="Check" class="btn btn-primary btn-lg">
+					<input type="submit" value="Check" class="btn btn-primary btn-lg" onclick="dispAtt(<?=json_encode($att)?>)">
 				</form>
 			</div>
 		</div>
@@ -86,14 +86,10 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('body').addClass('text-primary');
-		function getAttendance(){
-			var subject = $(#subject).value();
-
-		}
-	});
+<script>
+	function dispAtt(var a) {
+		console.log(a);
+	}
 	
 </script>
 </html>
