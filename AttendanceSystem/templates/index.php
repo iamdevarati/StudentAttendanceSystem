@@ -20,6 +20,9 @@
 	h1{
 		font-size: 400%;
 	}
+	.error{
+		font-weight: bold;
+	}
 </style>
 <body>
 	<div class="container">

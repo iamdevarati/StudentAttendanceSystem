@@ -43,7 +43,7 @@
     <label class="control-label col-sm-2" for="dept">Department:</label>
     <div class="col-sm-7 list-group" style="padding-left: 15px"> 
     	<select id="dept" name="dept" class="form-control" style="font-size:23px">
-	    	<option value="Defence" class="list-group-item active">Defence</option>
+	    	<option value="Defence" class="list-group-item">Defence</option>
 	    	<option value="Transfiguration" class="list-group-item">Transfiguration</option>
 	    	<option value="Potions" class="list-group-item">Potions</option>
 	  	</select>

@@ -34,23 +34,33 @@ $app->post('/login', function ($request, $response, $args) {
 $app->get('/dashboard', function ($request, $response, $args) {
 	$conn=dbConn();
 	$id=$_GET['id'];
+	//obtaining student details
 	$sql="SELECT * FROM studentdetails WHERE studID='$id'";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
-	// set the resulting array to associative
 	$details = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 	$details  = $stmt->fetchAll();
 	$dept=$details[0]['dept'];
 	$sem=$details[0]['semester'];
 	$sec=$details[0]['section'];
+
+	//obtaining user details
+	$sql="SELECT * FROM users WHERE id='$id'";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	$user = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$user  = $stmt->fetchAll();
+	$args['id']=$id;
 	//for routine
 	$result=extrctRoutine($dept,$sem,$sec,$conn);
 	if($result!=null){
 		$args['rows'] = sortWeekday($result);
+		$args['studDetails']=$details[0];
+		$args['userDetails']=$user[0];
 	}
 	else{
-		$args['error']="Routine is not available";
-		return $response->withRedirect('/?'.http_build_query($args));
+		$args['errorRout']="Routine is not available";
+		return $response->withRedirect('/dashboard?'.http_build_query($args));
 	}
 	//for attendance
 	$result=obtainAtt($id,$conn);
@@ -61,8 +71,36 @@ $app->get('/dashboard', function ($request, $response, $args) {
 	}
 	else
 	{
-		$args['error']="No attendance available";
-		return $response->withRedirect('/?'.http_build_query($args));
+		$args['errorAtt']="No attendance available";
+		return $response->withRedirect('/dashboard?'.http_build_query($args));
+	}
+});
+$app->post('/update', function ($request, $response, $args) {
+	$id=$_POST['ID'];
+	$username = $_POST['username'];
+   	$password = $_POST['pass'];
+   	$args['id']=$id;
+	$conn = dbConn();
+
+	$sql="SELECT * FROM users WHERE (uname='$username')";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	// set the resulting array to associative
+	$user = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$user  = $stmt->fetchAll();
+
+	if($user[0]['id']==$id and $user[0]['uname']==$username)//is_null($user[0]))
+	{
+		$sql_user = "UPDATE users SET uname='$username', pass='$password'  WHERE id='$id'";
+		$stmt = $conn->prepare($sql_user);
+		$stmt->execute();
+		$args['errorPI']= "change updated";
+		return $response->withRedirect('/dashboard?'.http_build_query($args));
+	}
+	else
+	{
+		$args['errorPI']= "User already exists. Choose different username.";
+		return $response->withRedirect('/dashboard?'.http_build_query($args));
 	}
 });
 //registration
@@ -102,6 +140,7 @@ $app->post('/register', function ($request, $response, $args) {
 		$sql_student = "INSERT INTO studentdetails(studID,name,dept,section,semester) VALUES ('$id','$name','$dept','$section','$semester')";
 		$stmt = $conn->prepare($sql_student);
 		$stmt->execute();
+		$args['error']="The user has been successfully created!Please log in to view dashboard.";
 		return $response->withRedirect('/?'.http_build_query($args));
 	}
 	else
