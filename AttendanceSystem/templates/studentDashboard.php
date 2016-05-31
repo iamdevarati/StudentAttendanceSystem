@@ -187,13 +187,13 @@
 			</form>
 		</div>
 	</div>
-	<!--<script type="text/javascript">document.getElementById('per').click();</script>-->
 </body>
 <script>
 	$(document).ready(function(){
 		$('body').addClass('text-primary');
-		$("#per").addClass("active");
-		$("#rout").removeClass("active");
+		<?php if(isset($_GET['errorPI']) && $_GET['errorPI']!=null) { ?>
+			document.getElementById("per").click();
+		<?php } ?>
 	});
 	$("#subjects li a").click(function(){
 		var subject = $(this).text();

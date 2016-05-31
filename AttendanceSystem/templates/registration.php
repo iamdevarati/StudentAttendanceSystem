@@ -35,7 +35,7 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="name">Name:</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" style="font-size:23px">
+      <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" style="font-size:23px" required>
     </div>
   </div>
 
@@ -75,21 +75,21 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="username">Username:</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="uname" name="uname" placeholder="Choose a username" style="font-size:23px">
+      <input type="text" class="form-control" id="uname" name="uname" placeholder="Choose a username" style="font-size:23px" required>
     </div>
   </div>
   
   <div class="form-group">
     <label class="control-label col-sm-2" for="password">Password:</label>
     <div class="col-sm-7"> 
-      <input type="password" class="form-control" id="password" name="password" placeholder="Choose a password" style="font-size:23px">
+      <input type="password" class="form-control" id="password" name="password" placeholder="Choose a password" style="font-size:23px" required>
     </div>
   </div>
 
   <div class="form-group">
     <label class="control-label col-sm-2" for="rtyPassword">Retype Password:</label>
     <div class="col-sm-7"> 
-      <input type="password" class="form-control" id="rtyPassword" name="rtyPassword" placeholder="Re-enter the password" style="font-size:23px">
+      <input type="password" class="form-control" id="rtyPassword" name="rtyPassword" placeholder="Re-enter the password" style="font-size:23px" required>
     </div>
   </div>
 

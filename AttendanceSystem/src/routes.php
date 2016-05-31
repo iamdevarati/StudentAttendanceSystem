@@ -22,7 +22,6 @@ $app->post('/login', function ($request, $response, $args) {
 
 	if($result!=null){
 		$args['id'] = $result[0]['id'];
-		$args['role'] = $result[0]['role'];
 		return $response->withRedirect('/dashboard?'. http_build_query($args));
 	}
 	else{
@@ -33,47 +32,59 @@ $app->post('/login', function ($request, $response, $args) {
 //dashboard
 $app->get('/dashboard', function ($request, $response, $args) {
 	$conn=dbConn();
-	$id=$_GET['id'];
-	//obtaining student details
-	$sql="SELECT * FROM studentdetails WHERE studID='$id'";
+	$id = $_GET['id'];
+	$sql="SELECT role FROM users WHERE id='$id'";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
 	$details = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 	$details  = $stmt->fetchAll();
-	$dept=$details[0]['dept'];
-	$sem=$details[0]['semester'];
-	$sec=$details[0]['section'];
+	$role = $details[0]['role'];
+	if($role=='student'){
+		//obtaining student details
+		$sql="SELECT * FROM studentdetails WHERE studID='$id'";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		$details = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$details  = $stmt->fetchAll();
+		$dept=$details[0]['dept'];
+		$sem=$details[0]['semester'];
+		$sec=$details[0]['section'];
 
-	//obtaining user details
-	$sql="SELECT * FROM users WHERE id='$id'";
-	$stmt = $conn->prepare($sql);
-	$stmt->execute();
-	$user = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-	$user  = $stmt->fetchAll();
-	$args['id']=$id;
-	//for routine
-	$result=extrctRoutine($dept,$sem,$sec,$conn);
-	if($result!=null){
-		$args['rows'] = sortWeekday($result);
-		$args['studDetails']=$details[0];
-		$args['userDetails']=$user[0];
+		//obtaining user details
+		$sql="SELECT * FROM users WHERE id='$id'";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		$user = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$user  = $stmt->fetchAll();
+		$args['id']=$id;
+		//for routine
+		$result=extrctStudentRoutine($dept,$sem,$sec,$conn);
+		if($result!=null){
+			$args['rows'] = sortWeekday($result);
+			$args['studDetails']=$details[0];
+			$args['userDetails']=$user[0];
+		}
+		else{
+			$args['errorRout']="Routine is not available";
+			return $response->withRedirect('/dashboard?'.http_build_query($args));
+		}
+		//for attendance
+		$result=obtainAtt($id,$conn);
+		if($result!=null)
+		{
+			$args['att'] = $result;
+			return $this->renderer->render($response, 'studentDashboard.php', $args);
+		}
+		else
+		{
+			$args['errorAtt']="No attendance available";
+			return $response->withRedirect('/dashboard?'.http_build_query($args));
+		}	
 	}
-	else{
-		$args['errorRout']="Routine is not available";
-		return $response->withRedirect('/dashboard?'.http_build_query($args));
+	else if($role=='faculty'){
+
 	}
-	//for attendance
-	$result=obtainAtt($id,$conn);
-	if($result!=null)
-	{
-		$args['att'] = $result;
-		return $this->renderer->render($response, 'dashboard.php', $args);
-	}
-	else
-	{
-		$args['errorAtt']="No attendance available";
-		return $response->withRedirect('/dashboard?'.http_build_query($args));
-	}
+	
 });
 $app->post('/update', function ($request, $response, $args) {
 	$id=$_POST['ID'];

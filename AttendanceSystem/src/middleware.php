@@ -18,7 +18,7 @@ function dbConn()
 	}
 }
 //obtaining routine
-function extrctRoutine($dept,$sem,$sec,$conn)
+function extrctStudentRoutine($dept,$sem,$sec,$conn)
 {
 	$sql="SELECT * FROM studroutine WHERE (dept='$dept' and semester='$sem' and section='$sec')";
 	$stmt = $conn->prepare($sql);
