@@ -28,7 +28,7 @@
 	<div class="container">
 		<h1>Welcome to Hogwarts</h1>
 		<?php if(isset($_GET['error']) && ($_GET['error']!=null)) { ?>
-			<div class="error">
+			<div class="error text-danger">
 				<h3><?= $_GET['error']?></h3> 
 			</div>
 		<?php } ?>

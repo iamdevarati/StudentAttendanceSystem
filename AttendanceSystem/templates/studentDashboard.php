@@ -7,6 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Allura' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
 </head>
 <style>
 	body{ 
@@ -38,7 +39,21 @@
 	}
 </style>
 <body>
-	<h1>Dashboard</h1>
+	<button type="button" class="btn btn-danger btn-lg" style="float:right; top: 10px; margin-right: 10px; font-family: 'Allura'" data-toggle="modal" data-target="#myModal"><i class="fa fa-power-off"></i></button>
+	<h1><?=$userDetails['uname']?>'s Dashboard</h1>
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<p>Are you sure you want to logout?</p>
+				</div>
+				<div class="modal-footer">
+					<a class="btn btn-success" href="/">Yes</a>
+					<a class="btn btn-danger" data-dismiss="modal">No</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<ul class="nav nav-tabs nav-justified">
 		<li class="active"><a data-toggle="tab" href="#routine" id='rout'><strong>Routine</strong></a></li>
 		<li><a data-toggle="tab" href="#attendance" id='att'><strong>Check Attendance</strong></a></li>
@@ -124,7 +139,7 @@
 						<?= $_GET['errorPI']?> 
 					</div>
 				<?php } ?>
-			<form action="/update" method="post" class="form-horizontal" role="form" onsubmit="check()">
+			<form action="/update" method="post" class="form-horizontal" role="form">
 			  	<div class="form-group">
 				    <label class="control-label col-sm-2" for="name">Name:</label>
 				    <div class="col-sm-7">
@@ -170,7 +185,7 @@
 			  	<div class="form-group" style="display:none" id="rtyPassDiv">
 				    <label class="control-label col-sm-2" for="rtypass">Retype Password:</label>
 				    <div class="col-sm-7">
-				      <input type="password" class="form-control" id="rtypass" name="rtypass" style="font-size:23px" disabled>
+				      <input type="password" class="form-control" id="rtypass" name="rtypass" style="font-size:23px">
 				    </div>
 			  	</div>
 				<div class="form-group"> 
@@ -202,17 +217,10 @@
 	});
 	function edit()
 	{
-		$("#username").removeAttr('disabled');
 		$("#pass").removeAttr('disabled');
-		$("#rtypass").removeAttr('disabled');
 		$("#rtyPassDiv").css("display","block");
 		$("#saveButton").css("display","block");
 		$("#editButton").css("display","none");
-	}
-	function check()
-	{
-		if($("#pass").val()!=$("#rtypass").val())
-			alert("passwords do not match!");
 	}
 </script>
 </html>

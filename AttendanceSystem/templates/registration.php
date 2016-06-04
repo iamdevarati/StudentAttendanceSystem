@@ -46,6 +46,7 @@
 	    	<option value="Defence" class="list-group-item">Defence</option>
 	    	<option value="Transfiguration" class="list-group-item">Transfiguration</option>
 	    	<option value="Potions" class="list-group-item">Potions</option>
+        <option value="Computer Science" class="list-group-item">Computer Science</option>
 	  	</select>
     </div>
   </div>
@@ -64,9 +65,9 @@
     <label class="control-label col-sm-2" for="semester">Semester:</label>
     <div class="col-sm-7 list-group" style="padding-left: 15px"> 
     	<select id="semester" name="semester" class="form-control" style="font-size:23px">
-	    	<option value="one" class="list-group-item active">First</option>
-	    	<option value="two" class="list-group-item">Second</option>
-	    	<option value="three" class="list-group-item">Third</option>
+	    	<option value="First" class="list-group-item active">First</option>
+	    	<option value="Second" class="list-group-item">Second</option>
+	    	<option value="Third" class="list-group-item">Third</option>
 	   	</select>
 	</div>
   </div>

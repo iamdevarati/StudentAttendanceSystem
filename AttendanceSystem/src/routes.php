@@ -82,15 +82,85 @@ $app->get('/dashboard', function ($request, $response, $args) {
 		}	
 	}
 	else if($role=='faculty'){
+		//obtaining student details
+		$sql="SELECT * FROM facultydetails WHERE facultyID='$id'";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		$details = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$details  = $stmt->fetchAll();
+		$dept=$details[0]['dept'];
 
+		//obtaining user details
+		$sql="SELECT * FROM users WHERE id='$id'";
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		$user = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+		$user  = $stmt->fetchAll();
+		$args['id']=$id;
+
+		//routine
+		$result=extrctFacultyRoutine($id,$conn);
+		if($result!=null){
+			$args['rows'] = $result;
+			$args['facDetails']=$details[0];
+			$args['userDetails']=$user[0];
+		}
+
+		else{
+			$args['errorRout']="Routine is not available";
+			return $response->withRedirect('/dashboard?'.http_build_query($args));
+		}
+		//attendance
+		$subjects=explode(",",$details[0]['subjects']);
+		$args['subject']=$subjects;
+		return $this->renderer->render($response, 'teacherDashboard.php', $args);
 	}
-	
+});
+$app->post('/attendanceList', function ($request, $response, $args) {
+	$subject=$_POST['data'];
+	$conn=dbConn();
+	$students=obtainAttList($subject,$conn);
+	echo json_encode($students);
+});
+$app->post('/giveAttendance', function ($request, $response, $args) {
+
+	$conn=dbConn();
+	echo json_encode($_POST);
+	$facultyID=$_POST['ID'];
+	$subjectCode=$_POST['subjectCode'];
+	$sql="SELECT * FROM attendance WHERE (subjectCode='$subjectCode')";
+	$stmt = $conn->prepare($sql);
+	$stmt->execute();
+	// set the resulting array to associative
+	$students = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+	$students  = $stmt->fetchAll();
+	foreach ($students as $student) 
+	{
+		foreach($_POST as $key => $value) 
+		{
+		  if($student['studID']==$value)
+		  {
+		  	$id=$student['studID'];
+		  	$sql_user = "UPDATE attendance SET att=att+1  WHERE studID='$id' and subjectCode='$subjectCode'";
+		  	$stmt = $conn->prepare($sql_user);
+			$stmt->execute();
+		  }
+		}
+	}
+	$args['errorAtt']="Attendance updated.";
+	$args['id']=$facultyID;
+	return $response->withRedirect('/dashboard?'.http_build_query($args));
 });
 $app->post('/update', function ($request, $response, $args) {
 	$id=$_POST['ID'];
+   	$args['id']=$id;
+	if($_POST['pass'] != $_POST['rtypass'])
+    {  
+        $args['errorPI'] = "Passwords do not match!";
+        return $response->withRedirect('/dashboard?'.http_build_query($args));
+    }
 	$username = $_POST['username'];
    	$password = $_POST['pass'];
-   	$args['id']=$id;
 	$conn = dbConn();
 
 	$sql="SELECT * FROM users WHERE (uname='$username')";
@@ -99,10 +169,9 @@ $app->post('/update', function ($request, $response, $args) {
 	// set the resulting array to associative
 	$user = $stmt->setFetchMode(PDO::FETCH_ASSOC);
 	$user  = $stmt->fetchAll();
-
-	if($user[0]['id']==$id and $user[0]['uname']==$username)//is_null($user[0]))
+	if($user[0]['uname']==$username)//is_null($user[0]))
 	{
-		$sql_user = "UPDATE users SET uname='$username', pass='$password'  WHERE id='$id'";
+		$sql_user = "UPDATE users SET pass='$password'  WHERE id='$id'";
 		$stmt = $conn->prepare($sql_user);
 		$stmt->execute();
 		$args['errorPI']= "change updated";
